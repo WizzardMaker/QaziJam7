@@ -31,6 +31,7 @@ public class Level : MonoBehaviour {
 		gameObject.SetActive(true);
 
 		p.transform.position = start.transform.position;
+		p.oldVelocity = Vector3.zero;
 		StopPlayer();
 
 		Camera.main.transform.position = cameraStart.transform.position;

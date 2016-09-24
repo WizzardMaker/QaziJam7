@@ -32,12 +32,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void StartLevel(int level) {
-		levels[curLevel].EndLevel();
-		curLevel = level;
-		if (curLevel > levels.Count) {
-			//VictoryScreen
-
+		if (level >= levels.Count) {
+			//Final level
 		} else {
+			Debug.Log((level + 1) + "/" + levels.Count);
+
+
+			levels[curLevel].EndLevel();
+			curLevel = level;
+
 			//Wait for the user to hit "Next Level"
 			levels[curLevel].StartLevel();
 		}

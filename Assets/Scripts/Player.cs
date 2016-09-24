@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour {
 	public static Player instance;
@@ -22,13 +23,14 @@ public class Player : MonoBehaviour {
 
 	bool canMove {
 		get {
-			return isGrounded && rig.velocity.magnitude < 0.25;
+			return isGrounded && rig.velocity.magnitude < 0.01f;
 		}
 	}
 
     Rigidbody rig;
 
-    Vector3 oldPos;
+	[HideInInspector]
+	public Vector3 oldPos, oldVelocity;
 
     // Use this for initialization
     void Awake() {
@@ -91,33 +93,35 @@ public class Player : MonoBehaviour {
 			velocity = -speed;
 		}
 	}
+	
+	public void Fire() {
+		rig.AddForce(velocity, ForceMode.Impulse);
+
+		oldVelocity = velocity;
+		velocity = Vector3.zero;
+	}
 
     // Update is called once per frame
     void Update() {
         rig = GetComponent<Rigidbody>();
 
-
-		if (Input.GetMouseButton(0) && !hasAborted && canMove) {
+		//if(isAiming)
+		if (Input.GetMouseButton(0) && !hasAborted && canMove && !GameObject.FindObjectOfType<EventSystem>().IsPointerOverGameObject()) {
 			Aim();
 
 			if (Input.GetKey(KeyCode.Escape))
 				hasAborted = true;
-		}else if (canMove && !Input.GetMouseButtonUp(0)) {
-			velocity = Vector3.zero;
 		}
 
 		if (Input.GetMouseButtonUp(0) && canMove) {
-			if(!hasAborted)
-				rig.AddForce(velocity, ForceMode.Impulse);
-
 			hasAborted = false;
 		}
 
-		if (rig.velocity.magnitude < 0.25f) {
-			PlotTrajectory(transform.position, velocity, .1f, 3);
+		if (rig.velocity.magnitude < 0.1f) {
+			PlotTrajectory(transform.position, velocity, .01f, 1.5f);
 			oldPos = transform.position;
 		} else {
-			PlotTrajectory(oldPos, velocity, .1f, 3);
+			PlotTrajectory(oldPos, oldVelocity, .01f, 1.5f);
 		}
 
 	}
