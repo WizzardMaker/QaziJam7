@@ -7,6 +7,9 @@ public class Player : MonoBehaviour {
     public float speed = 5;
     public float angle = 45;
 
+	Vector3 velocity;
+
+
     Rigidbody rig;
 
     Vector3 oldPos;
@@ -53,7 +56,13 @@ public class Player : MonoBehaviour {
 		if (Physics.Raycast(ray, out hit)) {
 			Vector3 speed = hit.point - transform.position;
 
+			speed.y = 0;
+			speed.x = Mathf.Clamp(speed.x, -8, 8);
+			speed.y = Mathf.Clamp(speed.y, -8, 8);
 
+			speed.y = -angle * (speed.magnitude/10);
+
+			velocity = -speed;
 		}
 	}
 
@@ -62,16 +71,16 @@ public class Player : MonoBehaviour {
         rig = GetComponent<Rigidbody>();
 
         if (rig.velocity.magnitude < 0.25f) {
-            PlotTrajectory(transform.position, new Vector3(5, Mathf.Tan(angle) * 5, 0), .1f, 6);
+            PlotTrajectory(transform.position, velocity, .1f, 2);
             oldPos = transform.position;
         } else {
-            PlotTrajectory(oldPos, new Vector3(5,Mathf.Tan( angle) * 5, 0), .1f, 6);
+            PlotTrajectory(oldPos, velocity, .1f, 2);
         }
 
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButton(0))
 			Aim();
 
 		if (Input.GetMouseButtonUp(0))
-			rig.AddForce(new Vector3(5f, angle/5, 0), ForceMode.Impulse);
+			rig.AddForce(velocity, ForceMode.Impulse);
     }
 }
