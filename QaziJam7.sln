@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QaziJam7.CSharp.Plugins", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QaziJam7.CSharp", "QaziJam7.CSharp.csproj", "{C01544FE-05D4-6FF6-6684-72AE203A3EEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QaziJam7.CSharp.Editor", "QaziJam7.CSharp.Editor.csproj", "{67624540-D8FE-CB5C-E572-A00F02AA3E9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QaziJam7.CSharp.Editor.Plugins", "QaziJam7.CSharp.Editor.Plugins.csproj", "{C6DD0685-E13D-B243-B855-734AEB2CC4CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,10 @@ Global
 		{C01544FE-05D4-6FF6-6684-72AE203A3EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C01544FE-05D4-6FF6-6684-72AE203A3EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C01544FE-05D4-6FF6-6684-72AE203A3EEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67624540-D8FE-CB5C-E572-A00F02AA3E9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67624540-D8FE-CB5C-E572-A00F02AA3E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67624540-D8FE-CB5C-E572-A00F02AA3E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67624540-D8FE-CB5C-E572-A00F02AA3E9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6DD0685-E13D-B243-B855-734AEB2CC4CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6DD0685-E13D-B243-B855-734AEB2CC4CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6DD0685-E13D-B243-B855-734AEB2CC4CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6DD0685-E13D-B243-B855-734AEB2CC4CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

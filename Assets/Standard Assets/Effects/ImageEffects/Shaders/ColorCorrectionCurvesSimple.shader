@@ -3,9 +3,10 @@ Shader "Hidden/ColorCorrectionCurvesSimple" {
 		_MainTex ("Base (RGB)", 2D) = "" {}
 		_RgbTex ("_RgbTex (RGB)", 2D) = "" {}
 	}
-	
 	// Shader code pasted into all further CGPROGRAM blocks
 	CGINCLUDE
+
+
 
 	#include "UnityCG.cginc"
 	
@@ -44,7 +45,14 @@ Shader "Hidden/ColorCorrectionCurvesSimple" {
 	ENDCG 
 	
 Subshader {
+
  Pass {
+		 Stencil{
+		 Ref 2
+		 Comp NotEqual
+		 Pass keep
+	 }
+
 	  ZTest Always Cull Off ZWrite Off
 
       CGPROGRAM
