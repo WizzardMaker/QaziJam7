@@ -14,6 +14,15 @@ public class GameManager : MonoBehaviour {
 			ScreenController.SetActiveScreen("None");
 		}
 	}
+	bool _isVictory = false;
+	public bool isVictory {
+		get { return _isVictory; }
+		set {
+			_isVictory = value;
+
+			ScreenController.SetActiveScreen("None");
+		}
+	}
 
 	public GameObject levelParent;
 	private List<Level> levels;
@@ -24,7 +33,7 @@ public class GameManager : MonoBehaviour {
 		instance = this;
 
 		levels = new List<Level>();
-		foreach(Level l in levelParent.GetComponentsInChildren<Level>()) {
+		foreach(Level l in levelParent.GetComponentsInChildren<Level>(true)) {
 			l.EndLevel();
 			levels.Add(l);
 		}
@@ -39,7 +48,19 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void NextLevel() {
-		StartLevel(curLevel+1);
+		//Toggle Victory Screen
+		isVictory = true;
+
+		ScreenWindow v = ScreenController.SetActiveScreen("Victory");
+
+		
+
+		v.GetButton("Next").onClick.AddListener(() =>{
+			StartLevel(curLevel + 1); isVictory = false;
+		});
+
+
+		//StartLevel(curLevel+1);
 	}
 	public void RestartLevel() {
 		StartLevel(curLevel);
@@ -72,7 +93,7 @@ public class GameManager : MonoBehaviour {
 
 	IEnumerator CheckValues() {
 		for (;;) {
-			Time.timeScale = isGameOver ? 0 : 1;
+			Time.timeScale = isGameOver || isVictory ? 0 : 1;
 
 			yield return null;
 		}
@@ -84,7 +105,6 @@ public class GameManager : MonoBehaviour {
 		ScreenController.SetActiveScreen("GameOver");
 
 		//Temp!
-
 		//RestartLevel();
 	}
 }

@@ -52,10 +52,18 @@ public class Level : MonoBehaviour {
 
 	float fadeDuration = 1;
 	IEnumerator Finish() {
+		Player.instance.GetComponent<Rigidbody>().isKinematic = true;
+
+		ScreenController.SetActiveScreen("PreVictory");
+
 		for (float f = 0; f <= 2; f += 0.1f) {
 			Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>().saturation = f;
 			yield return new WaitForSeconds(fadeDuration/10);
 		}
+
+		yield return new WaitForSeconds(2);
+
+		Player.instance.GetComponent<Rigidbody>().isKinematic = false;
 
 		GameManager.instance.NextLevel();
 	}

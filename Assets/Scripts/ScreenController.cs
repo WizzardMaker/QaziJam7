@@ -12,36 +12,48 @@ public class ScreenController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		screens = new List<ScreenWindow>();
-		screens.AddRange(GetComponentsInChildren<ScreenWindow>());
+		screens.AddRange(GetComponentsInChildren<ScreenWindow>(true));
 
 		DeactivateAll();
+	}
+
+	public static ScreenWindow GetActiveScreen() {
+		if (activeScreen == -1)
+			return null;
+
+		return screens[activeScreen];
 	}
 
 	public static void DeactivateAll() {
 		foreach (ScreenWindow s in screens)
 			s.gameObject.SetActive(false);
+
+		activeScreen = -1;
 	}
 	
-	public static void SetActiveScreen(int id) {
+	public static ScreenWindow SetActiveScreen(int id) {
 		if (id == -1) {
 			DeactivateAll();
-			return;
+			return GetActiveScreen();
 		}
 
 		if (id >= screens.Count)
 			throw new IndexOutOfRangeException();
 
-		screens[activeScreen].gameObject.SetActive(false);
+		if (activeScreen != -1)
+			screens[activeScreen].gameObject.SetActive(false);
 
 		activeScreen = id;
 
 		screens[activeScreen].gameObject.SetActive(true);
+
+		return GetActiveScreen();
 	}
 
-	public static void SetActiveScreen(string name) {
+	public static ScreenWindow SetActiveScreen(string name) {
 		if (name == "None") {
 			DeactivateAll();
-			return;
+			return GetActiveScreen();
 		}
 
 		int it = 0;
@@ -59,10 +71,13 @@ public class ScreenController : MonoBehaviour {
 		if (found == false)
 			throw new KeyNotFoundException();
 
-		screens[activeScreen].gameObject.SetActive(false);
+		if(activeScreen != -1)
+			screens[activeScreen].gameObject.SetActive(false);
 
 		activeScreen = it;
 
 		screens[activeScreen].gameObject.SetActive(true);
+
+		return GetActiveScreen();
 	}
 }
