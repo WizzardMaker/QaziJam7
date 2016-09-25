@@ -10,6 +10,8 @@ public class Player : MonoBehaviour {
 	public float speed = 5;
 	public float angle = 45;
 
+	public GameObject fireButton;
+
 	public bool hasAborted = false;
 
 	Vector3 velocity, platformVelocity = Vector3.zero;
@@ -17,7 +19,8 @@ public class Player : MonoBehaviour {
 
 	bool isGrounded {
 		get {
-			return Physics.Raycast(transform.position, -Vector3.up, 1);
+			Debug.DrawRay(transform.position, -Vector3.up * 0.55f, Color.red);
+			return Physics.Raycast(transform.position, -Vector3.up, 0.55f);
 		}
 	}
 
@@ -135,9 +138,13 @@ public class Player : MonoBehaviour {
 		}
 
 		if (canMove) {
+			fireButton.SetActive(true);
+
 			PlotTrajectory(transform.position, velocity, .01f, 1.5f);
 			oldPos = transform.position;
 		} else {
+			fireButton.SetActive(false);
+
 			PlotTrajectory(oldPos, oldVelocity, .01f, 1.5f);
 		}
 
