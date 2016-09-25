@@ -13,7 +13,7 @@ public class CameraControler : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update() {
+	void FixedUpdate() {
 
 		if(Input.GetMouseButton(1) && !Input.GetMouseButton(2))
 			transform.Rotate(Input.GetAxis("Mouse Y") * rotateSpeed, Input.GetAxis("Mouse X") * rotateSpeed, 0);

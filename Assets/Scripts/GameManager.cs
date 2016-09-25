@@ -5,7 +5,15 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 	public static GameManager instance;
 
-	public bool isGameOver = false;
+	bool _isGameOver = false;
+	public bool isGameOver {
+		get { return _isGameOver; }
+		set {
+			_isGameOver = value;
+
+			ScreenController.SetActiveScreen("None");
+		}
+	}
 
 	public GameObject levelParent;
 	private List<Level> levels;
@@ -22,6 +30,12 @@ public class GameManager : MonoBehaviour {
 		}
 
 		StartLevel(0);
+		StartCoroutine(CheckValues());
+	}
+
+	public void Exit() {
+		Application.Quit();
+		Debug.Log("Exit!");
 	}
 
 	public void NextLevel() {
@@ -29,6 +43,7 @@ public class GameManager : MonoBehaviour {
 	}
 	public void RestartLevel() {
 		StartLevel(curLevel);
+		isGameOver = false;
 	}
 
 	public void StartLevel(int level) {
@@ -55,11 +70,21 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	IEnumerator CheckValues() {
+		for (;;) {
+			Time.timeScale = isGameOver ? 0 : 1;
+
+			yield return null;
+		}
+	}
+
 	void OnGameOver() {
 		isGameOver = true;
 
+		ScreenController.SetActiveScreen("GameOver");
+
 		//Temp!
 
-		RestartLevel();
+		//RestartLevel();
 	}
 }
