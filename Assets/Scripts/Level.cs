@@ -9,6 +9,8 @@ public class Level : MonoBehaviour {
 	public GameObject cameraStart;
 	public Goal goal;
 
+	public bool isEnabled = true;
+
 	public void StartLevel() {
 		Player p = Player.instance;
 

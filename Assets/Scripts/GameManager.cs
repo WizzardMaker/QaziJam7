@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour {
 
 		levels = new List<Level>();
 		foreach(Level l in levelParent.GetComponentsInChildren<Level>(true)) {
+			if (l.isEnabled == false)
+				continue;
 			l.EndLevel();
 			levels.Add(l);
 		}
@@ -76,6 +78,8 @@ public class GameManager : MonoBehaviour {
 
 			levels[curLevel].EndLevel();
 			curLevel = level;
+
+			MovingPlatform.ResetPlatform();
 
 			//Wait for the user to hit "Next Level"
 			levels[curLevel].StartLevel();

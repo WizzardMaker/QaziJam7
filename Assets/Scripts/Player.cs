@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
 	public float angle = 45;
 
 	public GameObject fireButton;
+	public GameObject bounceSoundPrefab;
 
 	public bool hasAborted = false;
 
@@ -118,6 +119,13 @@ public class Player : MonoBehaviour {
 			platformVelocity = Vector3.zero;
 		}
 	}
+
+	public void OnCollisionEnter(Collision collision) {
+		if (collision.gameObject.GetComponent<ObstacleBase>() == null) {
+			Instantiate(bounceSoundPrefab).transform.position = transform.position;
+		}
+	}
+
 
 
 
